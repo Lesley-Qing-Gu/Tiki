@@ -26,15 +26,6 @@
       "date": "19 July – 8 September 2026",
       "description": "Blue Gate Crossing, The Last Year of Darkness and Pride Shorts Collection.",
       "image": "/assets/screening.jpg"
-    },
-    {
-      "id": "9e288c12-5429-4e15-a348-d94599b84719",
-      "section": "past",
-      "title": "Untitled",
-      "category": "",
-      "date": "",
-      "description": "",
-      "image": ""
     }
   ],
   "published": [
@@ -64,16 +55,7 @@
       "date": "19 July – 8 September 2026",
       "description": "Blue Gate Crossing, The Last Year of Darkness and Pride Shorts Collection.",
       "image": "/assets/screening.jpg"
-    },
-    {
-      "id": "9e288c12-5429-4e15-a348-d94599b84719",
-      "section": "past",
-      "title": "Untitled",
-      "category": "",
-      "date": "",
-      "description": "",
-      "image": ""
     }
   ],
-  "revision": 1791538770434
+  "revision": 1791539087864
 }
