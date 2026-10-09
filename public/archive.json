@@ -1,0 +1,79 @@
+{
+  "entries": [
+    {
+      "id": "news-shore",
+      "section": "news",
+      "title": "Notes from the shore",
+      "category": "",
+      "date": "",
+      "description": "",
+      "image": "/assets/sea.jpg"
+    },
+    {
+      "id": "news-invitation",
+      "section": "news",
+      "title": "An open invitation",
+      "category": "",
+      "date": "",
+      "description": "",
+      "image": ""
+    },
+    {
+      "id": "past-midnight",
+      "section": "past",
+      "title": "Midnight Ambiguous Zone",
+      "category": "SCREENING",
+      "date": "19 July – 8 September 2026",
+      "description": "Blue Gate Crossing, The Last Year of Darkness and Pride Shorts Collection.",
+      "image": "/assets/screening.jpg"
+    },
+    {
+      "id": "9e288c12-5429-4e15-a348-d94599b84719",
+      "section": "past",
+      "title": "Untitled",
+      "category": "",
+      "date": "",
+      "description": "",
+      "image": ""
+    }
+  ],
+  "published": [
+    {
+      "id": "news-shore",
+      "section": "news",
+      "title": "Notes from the shore",
+      "category": "",
+      "date": "",
+      "description": "",
+      "image": "/assets/sea.jpg"
+    },
+    {
+      "id": "news-invitation",
+      "section": "news",
+      "title": "An open invitation",
+      "category": "",
+      "date": "",
+      "description": "",
+      "image": ""
+    },
+    {
+      "id": "past-midnight",
+      "section": "past",
+      "title": "Midnight Ambiguous Zone",
+      "category": "SCREENING",
+      "date": "19 July – 8 September 2026",
+      "description": "Blue Gate Crossing, The Last Year of Darkness and Pride Shorts Collection.",
+      "image": "/assets/screening.jpg"
+    },
+    {
+      "id": "9e288c12-5429-4e15-a348-d94599b84719",
+      "section": "past",
+      "title": "Untitled",
+      "category": "",
+      "date": "",
+      "description": "",
+      "image": ""
+    }
+  ],
+  "revision": 1791537045529
+}
