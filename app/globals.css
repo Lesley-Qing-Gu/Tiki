@@ -114,6 +114,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 .site-header.is-visible a,.site-header.is-visible button{pointer-events:auto}
 .brand{display:block;width:80px;flex-shrink:0}
 .brand img{display:block;width:100%;height:auto}
+.about-brand{margin-bottom:24px}
 .site-header nav{display:flex;align-items:center;gap:28px;font-size:var(--text-size)}
 .site-header nav button{padding:0 0 5px;border-bottom:1px solid transparent;white-space:nowrap}
 .site-header nav button.active{border-color:currentColor}
@@ -173,8 +174,12 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 .enquiry-form button:hover{background:var(--foreground)}
 .form-note{margin:20px 0 0;font-size:var(--note-size)}
 .contact-links{padding:100px 6vw}
-.social-link{display:flex;justify-content:space-between;gap:16px;padding:18px 0;border-bottom:1px solid var(--border)}
-.social-link:hover span{transform:translate(3px,-3px)}
+.social-icons{display:flex;align-items:center;gap:28px}
+.social-link{display:flex;align-items:center;justify-content:center;width:56px;height:56px;color:var(--foreground);transition:color .2s}
+.social-link svg{display:block;width:36px;height:36px}
+.social-link-xiaohongshu{width:84px}
+.social-link-xiaohongshu svg{width:72px;height:48px}
+.social-link:hover,.social-link:focus-visible{color:var(--heading)}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(min-width:1700px){.card-grid{max-width:1500px;margin:auto}}
 @media(max-width:900px){:root{--text-size:18px;--title-size:32px}.site-header{padding:20px 24px}.site-header nav{gap:20px}.brand{width:66px}.about-copy{padding:56px 5vw 60px}.page-section{padding:110px 5vw 60px}.about-section{padding:0}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.contact-section{padding:0}.contact-intro,.contact-links{padding:70px 5vw}.enquiry-form{flex-direction:column}.enquiry-form button{justify-content:space-between}}
