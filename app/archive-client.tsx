@@ -81,7 +81,8 @@ export default function Archive() {
   },[logoReady]);
 
   useEffect(()=>{
-    if(detail||adminRequested){setHeaderVisible(true);return;}
+    if(adminRequested){setHeaderVisible(false);return;}
+    if(detail){setHeaderVisible(true);return;}
     const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
     let frame=0;
     const update=()=>{
@@ -119,7 +120,6 @@ export default function Archive() {
       enteringAbout.current=false;
       const hash=decodeURIComponent(location.hash.slice(1))||"home";
       if(hash==="admin"){
-        if(["127.0.0.1","localhost"].includes(location.hostname)){location.replace("http://127.0.0.1:5180/#admin");return;}
         setAdminRequested(true);setDetail(null);setActive("admin");window.scrollTo({top:0,behavior:"instant"});return;
       }
       setAdminRequested(false);
@@ -201,7 +201,7 @@ export default function Archive() {
   const item=published.find(entry=>entry.id===detail);
   return <>
     <header className={"site-header"+(headerVisible?" is-visible":"")} aria-hidden={!headerVisible} inert={!headerVisible}><a href={import.meta.env.BASE_URL} onClick={event=>{event.preventDefault();goTo("home");}} className="brand" aria-label="Diaspora East Cinema home"><img src={assetSrc("/assets/logo.webp")} alt="Diaspora East Cinema"/></a><nav aria-label="Main navigation">{sections.map(([id,label])=><button type="button" key={id} onClick={()=>goTo(id)} className={active===id?"active":""} aria-current={active===id?"location":undefined}>{label}</button>)}</nav></header>
-    <main>{adminRequested?<article className="article"><h1>Archive CMS</h1><p>The archive editor runs locally on your computer. Start the local management tool to sign in and edit your archive.</p><a className="back" href="http://127.0.0.1:5180/#admin">Open local editor ↗</a></article>:detail?<article className="article"><button type="button" className="back" onClick={()=>goTo(item?.section==="past"?"past":"news")}>← Back to {item?.section==="past"?"Past events":"News"}</button>{item?<>{item.image&&<img className="detail-cover" src={assetSrc(item.image)} alt={item.title}/>}<p className="category">{item.category}</p><h1><Typewriter text={item.title}/></h1>{item.date&&<p>{item.date}</p>}<p className="description"><Typewriter text={item.description}/></p></>:<h1>Entry not found</h1>}</article>:<>
+    <main>{adminRequested?<iframe className="admin-frame" title="Archive CMS" src={assetSrc("/admin/index.html")}/>:detail?<article className="article"><button type="button" className="back" onClick={()=>goTo(item?.section==="past"?"past":"news")}>← Back to {item?.section==="past"?"Past events":"News"}</button>{item?<>{item.image&&<img className="detail-cover" src={assetSrc(item.image)} alt={item.title}/>}<p className="category">{item.category}</p><h1><Typewriter text={item.title}/></h1>{item.date&&<p>{item.date}</p>}<p className="description"><Typewriter text={item.description}/></p></>:<h1>Entry not found</h1>}</article>:<>
       <section ref={heroRef} className="hero" id="home" aria-label="Diaspora East Cinema introduction">
         {!videoFailed&&<video ref={videoRef} className="hero-video" src={assetSrc("/assets/home-video.mp4")} poster={assetSrc("/assets/home-poster.jpg")} muted loop playsInline preload="metadata" onError={()=>setVideoFailed(true)}/>}
         {videoFailed&&<img className="hero-video" src={assetSrc("/assets/home-poster.jpg")} alt=""/>}

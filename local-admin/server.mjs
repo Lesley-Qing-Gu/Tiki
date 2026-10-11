@@ -6,6 +6,7 @@ import {randomBytes,scryptSync,timingSafeEqual} from 'node:crypto';
 import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 const exec=promisify(execFile),root=path.dirname(fileURLToPath(import.meta.url));
+const siteRoot=process.env.CMS_SITE_DIR||path.join(root,'site');
 const state=process.env.CMS_STATE_DIR||path.join(root,'.private'),port=Number(process.env.CMS_PORT||5180);
 const origin=`http://127.0.0.1:${port}`,repo='Lesley-Qing-Gu/Tiki',apiRoot=`/repos/${repo}`,live='https://lesley-qing-gu.github.io/Tiki/';
 await mkdir(state,{recursive:true,mode:0o700});await mkdir(path.join(state,'uploads'),{recursive:true,mode:0o700});
@@ -48,7 +49,7 @@ if(pathname==='/api/upload'&&req.method==='POST'){const bytes=await body(req,10*
 if(pathname==='/api/deployment'&&req.method==='GET'){const sha=url.searchParams.get('sha');if(sha&&!/^[a-f0-9]{40}$/.test(sha))throw new Failure('Invalid publication reference.');const data=await github(apiRoot+'/actions/workflows/pages.yml/runs?per_page=5'+(sha?'&head_sha='+sha:''));const run=data.workflow_runs?.[0];return json(res,200,{status:run?.status||'waiting',conclusion:run?.conclusion||null,url:live});}
 throw new Failure('Endpoint not found.',404);
 }
-const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json','.svg':'image/svg+xml','.webp':'image/webp','.gif':'image/gif','.png':'image/png','.jpg':'image/jpeg'};
+const mime={'.mp4':'video/mp4','.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json','.svg':'image/svg+xml','.webp':'image/webp','.gif':'image/gif','.png':'image/png','.jpg':'image/jpeg'};
 async function staticFile(res,base,name){const safe=path.resolve(base,name);if(!safe.startsWith(path.resolve(base)+path.sep))throw new Failure('File not found.',404);let bytes;try{bytes=await readFile(safe);}catch{throw new Failure('File not found.',404);}res.writeHead(200,{'Content-Type':mime[path.extname(safe)]||'application/octet-stream','X-Content-Type-Options':'nosniff','Cache-Control':'no-store'});res.end(bytes);}
 const server=http.createServer(async(req,res)=>{try{
 if(req.headers.host!==`127.0.0.1:${port}`)throw new Failure('Open the editor using its localhost address.',403);
@@ -57,9 +58,9 @@ const url=new URL(req.url,origin);if(url.pathname.startsWith('/api/')){if(req.me
 if(url.pathname==='/')return await staticFile(res,root,'admin.html');
 if(url.pathname==='/editor.js'||url.pathname==='/editor.css')return await staticFile(res,root,url.pathname.slice(1));
 if(url.pathname.startsWith('/local-image/')){if(!session(req))throw new Failure('Please sign in first.',401);return await staticFile(res,path.join(state,'uploads'),decodeURIComponent(url.pathname.slice(13)));}
-if(url.pathname==='/Tiki/archive.json'){const doc=await readJson('draft.json');return doc?json(res,200,{entries:doc.entries}):await staticFile(res,path.join(root,'site'),'archive.json');}
+if(url.pathname==='/Tiki/archive.json'){const doc=await readJson('draft.json');return doc?json(res,200,{entries:doc.entries}):await staticFile(res,siteRoot,'archive.json');}
 if(url.pathname.startsWith('/Tiki/uploads/')){const name=decodeURIComponent(url.pathname.slice('/Tiki/uploads/'.length));try{return await staticFile(res,path.join(state,'uploads'),name);}catch{const response=await fetch(live+'uploads/'+encodeURIComponent(name),{signal:AbortSignal.timeout(15000)});if(!response.ok)throw new Failure('Image not found.',404);res.writeHead(200,{'Content-Type':response.headers.get('content-type')||'image/jpeg','X-Content-Type-Options':'nosniff'});return res.end(Buffer.from(await response.arrayBuffer()));}}
-if(url.pathname.startsWith('/Tiki/'))return await staticFile(res,path.join(root,'site'),decodeURIComponent(url.pathname.slice(6))||'index.html');
+if(url.pathname.startsWith('/Tiki/'))return await staticFile(res,siteRoot,decodeURIComponent(url.pathname.slice(6))||'index.html');
 throw new Failure('Page not found.',404);
 }catch(e){if(!res.headersSent)json(res,e.status||500,{error:e.status?e.message:'This action could not be completed. Your draft is still saved on this computer.'});else res.end();}});
 server.listen(port,'127.0.0.1',()=>{console.log(`Local CMS: ${origin}/#admin`);console.log('Keep this window open. Closing it stops the local CMS.');});

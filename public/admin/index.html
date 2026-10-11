@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Diaspora East Cinema · Archive CMS</title><link rel="stylesheet" href="./editor.css"></head>
+<body>
+<main id="login" class="signin cms-password">
+  <a class="logo" href="/Tiki/#home" target="_blank"><img src="/Tiki/assets/logo.webp" alt="Diaspora East Cinema"></a>
+  <h1 id="login-title">Archive CMS</h1>
+  <p id="login-copy">Loading…</p>
+  <form id="login-form" hidden>
+    <label>Password<input id="password" type="password" minlength="10" maxlength="256" required autocomplete="current-password"></label>
+    <label id="confirm-label" hidden>Confirm password<input id="confirmation" type="password" minlength="10" maxlength="256" autocomplete="new-password"></label>
+    <small>At least 10 characters.</small>
+    <button class="signin-button" id="login-button">Sign in</button>
+  </form>
+  <p id="login-error" class="login-error" role="alert"></p>
+  <a href="/Tiki/#news" target="_blank">View site</a>
+</main>
+<section id="workspace" class="admin" hidden>
+  <header class="admin-top">
+    <a class="logo" href="/Tiki/#home" target="_blank" aria-label="Diaspora East Cinema home"><img class="logo-color" src="/Tiki/assets/logo.webp" alt="Diaspora East Cinema"></a>
+    <a href="https://lesley-qing-gu.github.io/Tiki/" target="_blank" rel="noreferrer">View site</a>
+    <a href="/Tiki/#news" target="_blank">Preview draft</a>
+    <button id="sync">Sync from website</button>
+    <button id="logout">Sign out</button>
+    <button id="connect" hidden>Connect GitHub</button>
+    <button id="save">Save draft</button>
+    <button id="publish" class="publish">Publish changes</button>
+  </header>
+  <p id="save-state" class="save-state" role="status"></p>
+  <p id="error" class="error" role="alert" hidden></p>
+  <div class="admin-body">
+    <aside class="admin-sidebar">
+      <nav><button data-section="news">News</button><button data-section="past">Past events</button></nav>
+      <button id="add" class="add-entry">+ Add entry</button>
+      <div id="entries" class="entry-list"></div>
+    </aside>
+    <main id="editor" class="editor">
+      <div class="entry-toolbar"><button id="up">Move up</button><button id="down">Move down</button><button id="delete">Delete entry</button></div>
+      <label class="field"><span>Title</span><input data-field="title" maxlength="300"></label>
+      <label class="field"><span>Category</span><input data-field="category"></label>
+      <label class="field"><span>Date</span><input data-field="date"></label>
+      <label class="field"><span>Description</span><textarea data-field="description" rows="5" maxlength="30000"></textarea></label>
+      <label class="field cover-field"><span>Cover image</span><input id="upload" type="file" accept="image/jpeg,image/png,image/webp,image/gif"><small id="upload-state"></small></label>
+      <div class="cover-preview"><img id="cover" alt="Current cover" hidden><button id="remove-cover">Remove image</button></div>
+    </main>
+    <p id="empty" class="empty" hidden>No entries yet. Add an entry to get started.</p>
+  </div>
+</section>
+<dialog id="connection-dialog" class="delete-dialog"><form id="connection-form"><h2>Connect GitHub</h2><p>This computer only needs to connect once. Your authorization stays on this computer.</p><p>Create a fine-grained personal access token for the Tiki repository only. Set Contents to Read and write, and Actions to Read-only.</p><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noreferrer">Open GitHub authorization settings</a><label>Access token<input id="token" type="password" autocomplete="off" required></label><p id="connection-error" role="alert"></p><div class="delete-footer"><button type="button" id="connection-cancel" class="delete-cancel">Cancel</button><button class="delete-confirm">Connect</button></div></form></dialog>
+<dialog id="delete-dialog" class="delete-dialog"><form method="dialog"><h2>Delete this entry?</h2><p>It will be removed from your draft. The live site changes only when you publish.</p><div class="delete-footer"><button value="cancel" class="delete-cancel">Cancel</button><button id="delete-confirm" value="delete" class="delete-confirm">Delete entry</button></div></form></dialog>
+<dialog id="sync-dialog" class="delete-dialog"><form method="dialog"><h2>Replace your draft with the published website?</h2><p>Your unpublished local edits will be replaced. Cancel to keep your draft.</p><div class="delete-footer"><button value="cancel" class="delete-cancel">Cancel</button><button id="sync-confirm" value="sync" class="delete-confirm">Sync from website</button></div></form></dialog>
+<script src="./editor.js" type="module"></script>
+</body></html>

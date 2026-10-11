@@ -1,7 +1,9 @@
 # Local archive editor
 
-GitHub Pages serves the public website only. This editor requires Node.js and runs on your computer.
+Run `npm run dev` from the repository root and open the local website with `#admin`. The editor UI is served by Vite, with API requests proxied to the local CMS on port 5180.
 
-Continue using the existing `Diaspora-Local-Admin` tool to retain its configured password, authorization and drafts. The files here are a source copy of the updated editor; private data is excluded.
+Alternatively, run `npm run admin` to build the website and launch the standalone editor at `http://127.0.0.1:5180/#admin`.
 
-For a new installation, run `npm run build` from the repository root, copy `dist/` into `local-admin/site/`, then run `node local-admin/server.mjs`. Open `http://127.0.0.1:5180/#admin`. A new installation requires password setup and GitHub authorization. Do not share or commit `.private/`.
+Existing credentials and drafts in the sibling `Diaspora-Local-Admin/.private/` directory are reused automatically when available. A new installation stores state in `local-admin/.private/` and requires password setup and GitHub authorization.
+
+The editor UI is included in the GitHub Pages build. GitHub Pages does not execute its backend; the hosted editor directs you to localhost for saving and publishing. Never share or commit `.private/`.

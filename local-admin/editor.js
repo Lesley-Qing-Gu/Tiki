@@ -24,4 +24,8 @@ $('#save').onclick=()=>save('draft');$('#publish').onclick=()=>save('publish');
 async function deployment(){try{const data=await api('deployment?sha='+commit);publicationStatus=data.status!=='completed'?'Website update in progress…':data.conclusion==='success'?'Website update complete':'Website update failed. Please check or publish again.';if(data.status==='completed')clearInterval(timer);buttons();}catch(e){publicationStatus='Changes submitted. Publication status is temporarily unavailable.';buttons();}}
 $('#sync').onclick=()=>$('#sync-dialog').showModal();$('#sync-confirm').onclick=async()=>{busy=true;buttons();try{doc=await api('sync',{method:'POST',body:'{}'});dirty=false;error('');render();}catch(e){error(e.message);}finally{busy=false;buttons();}};
 $('#connect').onclick=()=>$('#connection-dialog').showModal();$('#connection-cancel').onclick=()=>$('#connection-dialog').close();$('#connection-form').onsubmit=async e=>{e.preventDefault();$('#connection-error').textContent='';try{await api('connection',{method:'POST',body:JSON.stringify({token:$('#token').value.trim()})});$('#token').value='';$('#connection-dialog').close();await connection();await load();}catch(e){$('#connection-error').textContent=e.message;}};
-window.addEventListener('beforeunload',e=>{if(dirty)e.preventDefault();});void session();
+window.addEventListener('beforeunload',e=>{if(dirty)e.preventDefault();});if(['127.0.0.1','localhost','[::1]'].includes(location.hostname)){void session();}else{
+  $('#login-title').textContent='Archive CMS';
+  $('#login-copy').textContent='Start the local editor on your computer to manage and publish the archive.';
+  const localLink=document.createElement('a');localLink.href='http://127.0.0.1:5180/#admin';localLink.className='signin-button';localLink.textContent='Open local editor';$('#login-form').before(localLink);
+}

@@ -22,6 +22,12 @@ Clicking the opening video or scrolling the mouse wheel downward scrolls to Abou
 
 ## Local administration
 
-The local website’s `#admin` route opens the existing management tool at `http://127.0.0.1:5180/#admin`. Start it by double-clicking `Diaspora-Local-Admin/启动后台.command` and leave its window open. The management tool keeps its existing password and drafts.
+Run `npm run dev` and open the printed local website URL with `#admin` to manage the archive. The website and admin UI use the same local Vite address. Vite starts or reuses the local CMS at port 5180; it proxies authenticated editing, uploads, and draft preview requests to that service.
 
-On GitHub Pages, `#admin` displays a link to the local editor. Updated editor source is kept in `local-admin/`; its private state and authorization are excluded from Git.
+The existing `Diaspora-Local-Admin/.private` state is reused when available, keeping the configured password, authorization and drafts. Private data remains outside the public build.
+
+For the standalone editor, run `npm run admin` and open `http://127.0.0.1:5180/#admin`. This command first builds the current website for draft preview.
+
+GitHub Pages includes the website and the admin UI at `#admin`. Online, the admin UI links to the local editor; content changes and publishing run locally.
+
+Clicking the opening video or scrolling the mouse wheel downward scrolls to About us over 1.8 seconds. Text types in as it enters the viewport, with full text shown immediately for reduced-motion preferences. Desktop section titles/body/notes use 36/20/12px; mobile uses 28/16/12px. Navigation and event titles use the body text size. Archive cards have a complete frame around their image and title. Navigation starts with About us and turns pink on hover. Back links use the same pink hover and underline.
