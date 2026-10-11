@@ -8,7 +8,7 @@ import {promisify} from 'node:util';
 const exec=promisify(execFile),root=path.dirname(fileURLToPath(import.meta.url));
 const siteRoot=process.env.CMS_SITE_DIR||path.join(root,'site');
 const state=process.env.CMS_STATE_DIR||path.join(root,'.private'),port=Number(process.env.CMS_PORT||5180);
-const origin=`http://127.0.0.1:${port}`,repo='Lesley-Qing-Gu/Tiki',apiRoot=`/repos/${repo}`,live='https://decinema.nl/';
+const origin=`http://127.0.0.1:${port}`,repo='Lesley-Qing-Gu/Tiki',apiRoot=`/repos/${repo}`,live='https://lesley-qing-gu.github.io/Tiki/';
 await mkdir(state,{recursive:true,mode:0o700});await mkdir(path.join(state,'uploads'),{recursive:true,mode:0o700});
 const sessions=new Map(),failures=new Map();let saving=false,tokenCache='';
 class Failure extends Error{constructor(message,status=400){super(message);this.status=status;}}
